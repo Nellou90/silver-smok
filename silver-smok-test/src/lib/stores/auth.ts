@@ -1,10 +1,24 @@
-import { writable } from "svelte/store";
-import { auth } from "$lib/firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import type { User } from "firebase/auth";
+import { writable } from 'svelte/store';
+import { auth } from '$lib/firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
-export const user = writable<User | null>(null);
+export const user = writable(auth.currentUser);
 
-onAuthStateChanged(auth, (currentUser) => {
-    user.set(currentUser);
+auth.onAuthStateChanged((newUser) => {
+  user.set(newUser);
 });
+
+export const register = async (email: string, password: string) => {
+  const { user } = await createUserWithEmailAndPassword(auth, email, password);
+  return user;
+};
+
+export const login = async (email: string, password: string) => {
+  const { user } = await signInWithEmailAndPassword(auth, email, password);
+  return user;
+};
+
+export const logout = async () => {
+  await signOut(auth);
+};
+
