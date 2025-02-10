@@ -6,5 +6,5 @@ import type { User } from "firebase/auth";
 export const user = writable<User | null>(null);
 
 onAuthStateChanged(auth, (currentUser) => {
-  user.set(currentUser);
+    user.set(currentUser);
 });

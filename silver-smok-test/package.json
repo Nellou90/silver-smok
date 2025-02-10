@@ -32,6 +32,8 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"firebase": "^11.2.0"
+		"@tailwindcss/vite": "^4.0.4",
+		"firebase": "^11.2.0",
+		"tailwindcss": "^4.0.4"
 	}
 }
